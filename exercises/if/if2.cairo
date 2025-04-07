@@ -1,7 +1,6 @@
 // Step 1: Make me compile!
 // Step 2: Get the bar_for_fuzz and default_to_baz tests passing!
 
-// I AM NOT DONE
 
 fn foo_if_fizz(fizzish: felt252) -> felt252 {
     // Complete this function using if, else if and/or else blocks.
@@ -11,8 +10,10 @@ fn foo_if_fizz(fizzish: felt252) -> felt252 {
     // anything else, return 'baz'
     if fizzish == 'fizz' {
         'foo'
+    } else if fizzish == 'fuzz'{
+        'bar'
     } else {
-        1_u32
+        'baz'
     }
 }
 

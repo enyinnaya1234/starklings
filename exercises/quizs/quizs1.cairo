@@ -4,10 +4,12 @@
 // Write a function that calculates the price of an order of apples given
 // the quantity bought. No hints this time!
 
-// I AM NOT DONE
-
-fn calculate_price_of_apples{
-
+fn calculate_price_of_apples(qty: u16)-> u16{
+    if  qty > 40{
+        2 * qty
+    }else{
+        3 * qty
+    }
 }
 
 // Do not change the tests!

@@ -4,7 +4,6 @@
 // This is useful when you have types that share some common functionality, but
 // also have some unique functionality.
 
-// I AM NOT DONE
 
 #[derive(Copy, Drop)]
 struct Fish {
@@ -57,7 +56,17 @@ impl AnimalDogImpl of AnimalTrait<Dog> {
 }
 
 // TODO: implement FishTrait for the type Fish
+impl Fishimpl of FishTrait {
+    fn swim(ref self: Fish){
+        self.distance += 1;
+    }
+}
 
+impl DogTraitImpl of DogTrait {
+    fn walk(ref self: Dog) -> (){
+        self.distance += 1;
+    }
+}
 // TODO: implement DogTrait for the type Dog
 
 #[test]

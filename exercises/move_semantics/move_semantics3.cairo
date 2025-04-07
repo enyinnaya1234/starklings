@@ -1,7 +1,6 @@
 // Make me compile without adding new lines-- just changing existing lines!
 // (no lines with multiple semicolons necessary!)
 
-// I AM NOT DONE
 
 use debug::PrintTrait;
 
@@ -18,6 +17,7 @@ fn main() {
 }
 
 fn fill_arr(arr: Array<felt252>) -> Array<felt252> {
+    let mut arr = arr;
     arr.append(22);
     arr.append(44);
     arr.append(66);

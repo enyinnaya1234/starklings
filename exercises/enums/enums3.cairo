@@ -1,14 +1,17 @@
 // Address all the TODOs to make the tests pass!
 
-// I AM NOT DONE
 
 #[derive(Drop, Copy)]
 enum Message { // TODO: implement the message variant types based on their usage below
+    ChangeColor: (u8, u8, u8),
+    Echo: felt252,
+    Move : Point,
+    Quit,
 }
 
 #[derive(Drop, Copy)]
 struct Point {
-    x: u8,
+    x: u8, 
     y: u8,
 }
 
@@ -45,9 +48,16 @@ impl StateImpl of StateTrait {
         self = State { color: color, position: p, quit: quit, };
     }
 
+    
     fn process(
         ref self: State, message: Message
     ) { // TODO: create a match expression to process the different message variants
+        match message  {
+            Message::ChangeColor(new_colour) => self.change_color(new_colour),
+            Message::Echo(y) => self.echo(y),
+            Message::Move(p) => self.move_position(p),
+            Message::Quit => self.quit(),
+        }
     }
 }
 

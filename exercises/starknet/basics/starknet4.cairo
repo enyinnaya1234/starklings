@@ -2,7 +2,6 @@
 // This is a bit challenging for Joe and Jill, Liz prepared an outline
 // for how contract should work, can you help Jill and Joe write it?
 
-// I AM NOT DONE
 
 use starknet::ContractAddress;
 
@@ -24,6 +23,7 @@ mod LizInventory {
     struct Storage {
         contract_owner: ContractAddress,
         // TODO: add storage inventory, that maps product (felt252) to stock quantity (u32)
+        storage_inventory: Map<felt252, u32>,
     }
 
     #[constructor]
@@ -34,24 +34,25 @@ mod LizInventory {
 
     #[abi(embed_v0)]
     impl LizInventoryImpl of super::ILizInventory<ContractState> {
-        fn add_stock(ref self: ContractState, ) {
-            // TODO:
-            // * takes product and new_stock
-            // * adds new_stock to stock in inventory
-            // * only owner can call this
+        fn add_stock(ref self: ContractState, product: felt252, new_stock: u32) {
+            let owner = self.get_owner();
+            let caller = get_caller_address();
+            assert(caller == owner, 'caller not owner');
+            let prev_stock = self.storage_inventory.read(product);
+            let total_stock = prev_stock + new_stock;
+            self.storage_inventory.write(product, total_stock);
         }
 
-        fn purchase(ref self: ContractState, ) {
-            // TODO:
-            // * takes product and quantity
+        fn purchase(ref self: ContractState, product: felt252, quantity: u32) {
             // * subtracts quantity from stock in inventory
-            // * anybody can call this
+            let inventory = self.storage_inventory.read(product);
+            let difference = inventory - quantity;
+            self.storage_inventory.write(product, difference);
+
         }
 
-        fn get_stock(self: @ContractState, ) -> u32 {
-            // TODO:
-            // * takes product
-            // * returns product stock in inventory
+        fn get_stock(self: @ContractState, product: felt252) -> u32 {
+            self.storage_inventory.read(product)
         }
 
         fn get_owner(self: @ContractState) -> ContractAddress {
